@@ -1,0 +1,4 @@
+# -*- cmake -*-
+project( cpptweener )
+
+add_library( cpptweener STATIC "${CMAKE_CURRENT_SOURCE_DIR}/CppTweener.cpp" )
