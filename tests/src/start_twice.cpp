@@ -8,7 +8,7 @@ TEST( tweeners, start_twice )
 {
   test_helper helper;
   
-  tweener_tracker& tracker( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker( helper.insert( tweeners::system::not_an_id ) );
 
   helper.system.update( 10 );
 
@@ -40,7 +40,7 @@ TEST( tweeners, start_twice_sequence )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 

@@ -12,8 +12,8 @@ TEST( system, assign_complex_value )
   
   complex value;
 
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( complex( 0, 100 ), complex( 100, 0 ), 10, value,
       &tweeners::easing::linear< float > )

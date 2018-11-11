@@ -8,8 +8,8 @@ TEST( system, zero_duration_single )
 {
   int value;
 
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform( 0, 100, 0, value, &tweeners::easing::linear< float > )
     .build( system );
 
@@ -20,20 +20,20 @@ TEST( system, zero_duration_single )
 TEST( system, zero_duration_in_sequence )
 {
   int value_1, value_2, value_3;
-  tweeners::system<> system;
+  tweeners::system system;
   
   const int slot_1
-    ( tweeners::builder<>()
+    ( tweeners::builder()
       .range_transform( 0, 100, 1, value_1, &tweeners::easing::linear< float > )
       .build( system ) );
 
   const int slot_2
-    ( tweeners::builder<>()
+    ( tweeners::builder()
       .range_transform( 0, 10, 0, value_2, &tweeners::easing::linear< float > )
       .after( slot_1 )
       .build( system ) );
 
-  tweeners::builder<>()
+  tweeners::builder()
     .range_transform( 2, 4, 1, value_3, &tweeners::easing::linear< float > )
     .after( slot_2 )
     .build( system );

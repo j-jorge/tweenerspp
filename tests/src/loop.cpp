@@ -8,7 +8,7 @@ TEST( tweeners, loop_on_self )
 {
   test_helper helper;
   
-  tweener_tracker& tracker( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker( helper.insert( tweeners::system::not_an_id ) );
 
   helper.system.play_in_sequence( tracker.slot, tracker.slot );
 
@@ -34,7 +34,7 @@ TEST( tweeners, loop_on_previous )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
 
   helper.system.play_in_sequence( tracker_2.slot, tracker_1.slot );
@@ -68,7 +68,7 @@ TEST( tweeners, loop_all_the_way_back )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_2.slot ) );
 

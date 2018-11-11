@@ -6,7 +6,7 @@
 namespace tweeners
 {
   template< typename Config >
-  class system;
+  class system_base;
 
   /**
    * \brief Convenience object to insert new tweeners in a tweeners::system.
@@ -19,7 +19,7 @@ namespace tweeners
    * order to actually create the tweener.
    */
   template< typename Config = config<> >
-  class builder
+  class builder_base
   {
   public:
     using duration_type = typename Config::duration_type;
@@ -30,24 +30,24 @@ namespace tweeners
     using function_type = typename Config::template function_type< Signature >;
 
   public:
-    builder();
+    builder_base();
     
     template< typename T, typename Transform >
-    builder& range_transform
+    builder_base& range_transform
     ( T from, T to, duration_type duration, T& target,
       Transform transform );
 
     template< typename T, typename Update, typename Transform >
-    builder& range_transform
+    builder_base& range_transform
     ( T from, T to, duration_type duration,
       Update update_callback,
       Transform transform );
 
-    builder& on_start( function_type< void() > callback );
-    builder& on_done( function_type< void() > callback );
-    builder& after( id_type slot_id );
+    builder_base& on_start( function_type< void() > callback );
+    builder_base& on_done( function_type< void() > callback );
+    builder_base& after( id_type slot_id );
 
-    id_type build( system< Config >& system );
+    id_type build( system_base< Config >& system );
 
   private:
     duration_type m_duration;
@@ -59,6 +59,8 @@ namespace tweeners
 
     id_type m_previous;
   };
+
+  using builder = builder_base<>;
 }  
 
 #include <tweeners/detail/builder.tpp>

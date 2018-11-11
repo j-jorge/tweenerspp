@@ -42,8 +42,8 @@ TEST( system, on_start_on_done )
         value = v;
       } );
 
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .on_start( on_start )

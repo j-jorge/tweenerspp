@@ -5,7 +5,7 @@
 
 struct tweener_tracker
 {
-  tweeners::system<>::id_type slot;
+  tweeners::system::id_type slot;
   int value;
   int update_count = 0;
   int start_count = 0;

@@ -5,8 +5,8 @@
 #include <tweeners/system.hpp>
 
 template< typename Config >
-tweeners::builder< Config >::builder()
-  : m_previous( system< Config >::not_an_id )
+tweeners::builder_base< Config >::builder_base()
+  : m_previous( system_base< Config >::not_an_id )
 {
 
 }
@@ -28,7 +28,8 @@ tweeners::builder< Config >::builder()
  */
 template< typename Config >
 template< typename T, typename Transform >
-tweeners::builder< Config >& tweeners::builder< Config >::range_transform
+tweeners::builder_base< Config >&
+tweeners::builder_base< Config >::range_transform
 ( T from, T to, duration_type duration, T& target, Transform transform )
 {
   auto update
@@ -57,7 +58,8 @@ tweeners::builder< Config >& tweeners::builder< Config >::range_transform
  */
 template< typename Config >
 template< typename T, typename Update, typename Transform >
-tweeners::builder< Config >& tweeners::builder< Config >::range_transform
+tweeners::builder_base< Config >&
+tweeners::builder_base< Config >::range_transform
 ( T from, T to, duration_type duration, Update update_callback,
   Transform transform )
 {
@@ -80,7 +82,7 @@ tweeners::builder< Config >& tweeners::builder< Config >::range_transform
  * \brief Sets the function to call when the tweener starts (optional).
  */
 template< typename Config >
-tweeners::builder< Config >& tweeners::builder< Config >::on_start
+tweeners::builder_base< Config >& tweeners::builder_base< Config >::on_start
 ( function_type< void() > callback )
 {
   m_on_start = callback;
@@ -92,8 +94,8 @@ tweeners::builder< Config >& tweeners::builder< Config >::on_start
  *        (optional).
  */
 template< typename Config >
-tweeners::builder< Config >&
-tweeners::builder< Config >::on_done( function_type< void() > callback )
+tweeners::builder_base< Config >&
+tweeners::builder_base< Config >::on_done( function_type< void() > callback )
 {
   m_on_done = callback;
   return *this;
@@ -104,8 +106,8 @@ tweeners::builder< Config >::on_done( function_type< void() > callback )
  *        sequenced (optional).
  */
 template< typename Config >
-tweeners::builder< Config >&
-tweeners::builder< Config >::after( id_type slot_id )
+tweeners::builder_base< Config >&
+tweeners::builder_base< Config >::after( id_type slot_id )
 {
   m_previous = slot_id;
   return *this;
@@ -120,8 +122,8 @@ tweeners::builder< Config >::after( id_type slot_id )
  * \return The identifier of the created tweener.
  */
 template< typename Config >
-typename Config::id_type tweeners::builder< Config >::build
-( system< Config >& system )
+typename Config::id_type tweeners::builder_base< Config >::build
+( system_base< Config >& system )
 {
   tweeners_confirm_contract
     ( m_update,
@@ -142,7 +144,7 @@ typename Config::id_type tweeners::builder< Config >::build
   if ( m_on_done )
     system.on_slot_done( slot, std::move( m_on_done ) );
 
-  if ( m_previous == tweeners::system< Config >::not_an_id )
+  if ( m_previous == tweeners::system_base< Config >::not_an_id )
     system.start_slot( slot );
   else
     system.play_in_sequence( m_previous, slot );

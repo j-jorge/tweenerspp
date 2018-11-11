@@ -42,10 +42,10 @@ TEST( system, sequence )
   tracker tracker_1;
   tracker tracker_2;
   
-  tweeners::system<> system;
-  tweeners::builder<> builder;
+  tweeners::system system;
+  tweeners::builder builder;
 
-  const tweeners::system<>::id_type slot_1
+  const tweeners::system::id_type slot_1
     ( builder.range_transform
       ( 0, 100, 10,
         std::bind( &tracker::update, &tracker_1, std::placeholders::_1 ),
@@ -54,7 +54,7 @@ TEST( system, sequence )
       .on_done( std::bind( &tracker::count_done, &tracker_1 ) )
       .build( system ) );
 
-  const tweeners::system<>::id_type slot_2
+  const tweeners::system::id_type slot_2
     ( builder.range_transform
       ( 0, 100, 10,
         std::bind( &tracker::update, &tracker_2, std::placeholders::_1 ),
@@ -126,10 +126,10 @@ TEST( system, sequence_of_three_with_zero )
   tracker tracker_2;
   tracker tracker_3;
   
-  tweeners::system<> system;
-  tweeners::builder<> builder;
+  tweeners::system system;
+  tweeners::builder builder;
 
-  const tweeners::system<>::id_type slot_1
+  const tweeners::system::id_type slot_1
     ( builder.range_transform
       ( 0, 1, 1,
         std::bind( &tracker::update, &tracker_1, std::placeholders::_1 ),
@@ -138,7 +138,7 @@ TEST( system, sequence_of_three_with_zero )
       .on_done( std::bind( &tracker::count_done, &tracker_1 ) )
       .build( system ) );
 
-  const tweeners::system<>::id_type slot_2
+  const tweeners::system::id_type slot_2
     ( builder.range_transform
       ( 2, 4, 1,
         std::bind( &tracker::update, &tracker_2, std::placeholders::_1 ),
@@ -210,10 +210,10 @@ TEST( system, sequence_of_three )
   tracker tracker_2;
   tracker tracker_3;
   
-  tweeners::system<> system;
-  tweeners::builder<> builder;
+  tweeners::system system;
+  tweeners::builder builder;
 
-  const tweeners::system<>::id_type slot_1
+  const tweeners::system::id_type slot_1
     ( builder.range_transform
       ( 0, 2, 2,
         std::bind( &tracker::update, &tracker_1, std::placeholders::_1 ),
@@ -222,7 +222,7 @@ TEST( system, sequence_of_three )
       .on_done( std::bind( &tracker::count_done, &tracker_1 ) )
       .build( system ) );
 
-  const tweeners::system<>::id_type slot_2
+  const tweeners::system::id_type slot_2
     ( builder.range_transform
       ( 0, 20, 2,
         std::bind( &tracker::update, &tracker_2, std::placeholders::_1 ),

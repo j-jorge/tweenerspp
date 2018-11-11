@@ -8,9 +8,9 @@
 class test_helper
 {
 public:
-  tweener_tracker& insert( tweeners::system<>::id_type previous );
+  tweener_tracker& insert( tweeners::system::id_type previous );
 
-  tweeners::system<> system;
+  tweeners::system system;
   
 private:
   std::array< tweener_tracker, 3 > m_trackers;

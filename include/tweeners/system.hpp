@@ -22,7 +22,7 @@ namespace tweeners
    * the tweener starts and ends.
    */
   template< typename Config = config<> >
-  class system
+  class system_base
   {
   public:
     using duration_type = typename Config::duration_type;
@@ -32,15 +32,13 @@ namespace tweeners
     template< typename Signature >
     using function_type = typename Config::template function_type< Signature >;
 
-    using system_type = system< Config >;
-
     using update_function = function_type< void( float_type ) >;
     using transform_function = function_type< float_type( float_type ) >;
 
     using void_function = function_type< void() >;
 
   public:
-    system();
+    system_base();
 
     void reserve
     ( std::size_t slot_count, std::size_t value_count_per_component,
@@ -169,6 +167,8 @@ namespace tweeners
     /** \brief Slots that will be updated in the next update. */
     std::vector< id_type > m_need_update;
   };
+
+  using system = system_base<>;
 }
 
 #include <tweeners/detail/system.tpp>

@@ -66,7 +66,7 @@ private:
     std::size_t current_easing;
     bool need_change;
     int& value;
-    tweeners::system<>::id_type slot;
+    tweeners::system::id_type slot;
   };
   
 private:
@@ -82,7 +82,7 @@ private:
   variable m_y;
   const std::vector< easing_function > m_easing_functions;
 
-  tweeners::system<> m_system;
+  tweeners::system m_system;
 };
 
 #define register_easing( function )                                     \
@@ -211,7 +211,7 @@ void easing_explorer::insert_slot( variable& v )
   constexpr int duration( 2000 );
 
   v.slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform
     ( v.min, v.max, duration, v.value,
       m_easing_functions[ v.current_easing ].function )

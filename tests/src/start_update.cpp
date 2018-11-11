@@ -8,8 +8,8 @@ TEST( system, assign_address )
 {
   int value;
 
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, value, &tweeners::easing::linear< float > )
     .build( system );
@@ -45,8 +45,8 @@ TEST( system, update_callback )
         ++calls;
       } );
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .build( system );
@@ -93,8 +93,8 @@ TEST( system, update_object )
     };
   };
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update{ value, calls }, &tweeners::easing::linear< float > )
     .build( system );
@@ -139,8 +139,8 @@ TEST( system, lambda_transform_assign_address )
         return result;
       } );
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform( 0, 100, 10, value, transform )
     .build( system );
 
@@ -193,8 +193,8 @@ TEST( system, lambda_transform_update_callback )
         return result;
       } );
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform( 0, 100, 10, update, transform )
     .build( system );
 
@@ -258,8 +258,8 @@ TEST( system, lambda_transform_update_object )
         return result;
       } );
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update{ value, update_calls }, transform )
     .build( system );
@@ -314,8 +314,8 @@ TEST( system, object_transform_assign_address )
     }
   };
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform( 0, 100, 10, value, transform{ calls } )
     .build( system );
 
@@ -372,8 +372,8 @@ TEST( system, object_transform_update_callback )
     }
   };
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update, transform{ transform_calls } )
     .build( system );
@@ -442,8 +442,8 @@ TEST( system, object_transform_update_object )
     }
   };
   
-  tweeners::system<> system;
-  tweeners::builder<>()
+  tweeners::system system;
+  tweeners::builder()
     .range_transform
     ( 0, 100, 10, update{ value, update_calls}, transform{ transform_calls } )
     .build( system );

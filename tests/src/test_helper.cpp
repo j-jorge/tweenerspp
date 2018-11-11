@@ -6,7 +6,7 @@
 #include <cassert>
 
 tweener_tracker&
-test_helper::insert( tweeners::system<>::id_type previous )
+test_helper::insert( tweeners::system::id_type previous )
 {
   assert( m_next_tracker < m_trackers.size() );
   
@@ -19,7 +19,7 @@ test_helper::insert( tweeners::system<>::id_type previous )
   auto done( std::bind( &tweener_tracker::done, &result ) );
 
   result.slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .on_start( start )
     .on_done( done )

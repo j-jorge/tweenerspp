@@ -25,7 +25,7 @@
   ( [ this ]() -> void { check_invariants(); } )
 
 template< typename Config >
-tweeners::system< Config >::system()
+tweeners::system_base< Config >::system_base()
   : m_start_functions( []() -> void {} ),
     m_done_functions( []() -> void {} ),
     m_successors( {} )
@@ -47,7 +47,7 @@ tweeners::system< Config >::system()
  *        simultaneously.
  */
 template< typename Config >
-void tweeners::system< Config >::reserve
+void tweeners::system_base< Config >::reserve
 ( std::size_t slot_count, std::size_t value_count_per_component,
   std::size_t simultaneous_count )
 {
@@ -88,8 +88,8 @@ void tweeners::system< Config >::reserve
  * start_slot and \a tweeners::builder.
  */
 template< typename Config >
-typename tweeners::system< Config >::id_type
-tweeners::system< Config >::configure_slot
+typename tweeners::system_base< Config >::id_type
+tweeners::system_base< Config >::configure_slot
 ( duration_type duration, update_function update, transform_function transform )
 {
   tweeners_debug_system_invariant();
@@ -120,7 +120,7 @@ tweeners::system< Config >::configure_slot
  * See \sa play_in_sequence to schedule a slot after another one.
  */
 template< typename Config >
-void tweeners::system< Config >::start_slot( id_type slot_id )
+void tweeners::system_base< Config >::start_slot( id_type slot_id )
 {
   tweeners_debug_system_invariant();
 
@@ -154,7 +154,7 @@ void tweeners::system< Config >::start_slot( id_type slot_id )
  * See \sa configure_slot to create a slot_id.
  */
 template< typename Config >
-void tweeners::system< Config >::on_slot_start
+void tweeners::system_base< Config >::on_slot_start
 ( id_type slot_id, void_function callback )
 {
   tweeners_debug_system_invariant();
@@ -177,7 +177,7 @@ void tweeners::system< Config >::on_slot_start
  * See \sa configure_slot to create a slot_id.
  */
 template< typename Config >
-void tweeners::system< Config >::on_slot_done
+void tweeners::system_base< Config >::on_slot_done
 ( id_type slot_id, void_function callback )
 {
   tweeners_debug_system_invariant();
@@ -207,8 +207,8 @@ void tweeners::system< Config >::on_slot_done
  * \sa start_slot to start the update of a given slot.
  */
 template< typename Config >
-void
-tweeners::system< Config >::play_in_sequence( id_type first, id_type second )
+void tweeners::system_base< Config >::play_in_sequence
+( id_type first, id_type second )
 {
   tweeners_debug_system_invariant();
 
@@ -244,7 +244,7 @@ tweeners::system< Config >::play_in_sequence( id_type first, id_type second )
  * start_slot() on them.
  */
 template< typename Config >
-void tweeners::system< Config >::remove_slot( id_type slot_id )
+void tweeners::system_base< Config >::remove_slot( id_type slot_id )
 {
   tweeners_debug_system_invariant();
 
@@ -278,7 +278,7 @@ void tweeners::system< Config >::remove_slot( id_type slot_id )
  * relatively to each other.
  */
 template< typename Config >
-void tweeners::system< Config >::update( duration_type step )
+void tweeners::system_base< Config >::update( duration_type step )
 {
   // update_running_slots() may start new slots in sequences. These slots,
   // and only them, must be updated during the same update call. Slots created
@@ -317,8 +317,8 @@ void tweeners::system< Config >::update( duration_type step )
  * are the same.
  */
 template< typename Config >
-typename tweeners::system< Config >::id_type
-tweeners::system< Config >::create_slot()
+typename tweeners::system_base< Config >::id_type
+tweeners::system_base< Config >::create_slot()
 {
   tweeners_debug_system_invariant();
 
@@ -360,7 +360,7 @@ tweeners::system< Config >::create_slot()
  * tweeners_debug_validate_id() macro.
  */
 template< typename Config >
-bool tweeners::system< Config >::is_valid_slot_id( id_type slot_id ) const
+bool tweeners::system_base< Config >::is_valid_slot_id( id_type slot_id ) const
 {
   tweeners_debug_system_invariant();
 
@@ -371,7 +371,7 @@ bool tweeners::system< Config >::is_valid_slot_id( id_type slot_id ) const
 }
 
 template< typename Config >
-void tweeners::system< Config >::update_current_date( duration_type step )
+void tweeners::system_base< Config >::update_current_date( duration_type step )
 {
   tweeners_debug_system_invariant();
 
@@ -380,7 +380,8 @@ void tweeners::system< Config >::update_current_date( duration_type step )
 }
 
 template< typename Config >
-void tweeners::system< Config >::start_slots( std::vector< id_type >& queue )
+void
+tweeners::system_base< Config >::start_slots( std::vector< id_type >& queue )
 {
   tweeners_debug_system_invariant();
 
@@ -426,7 +427,7 @@ void tweeners::system< Config >::start_slots( std::vector< id_type >& queue )
 }
 
 template< typename Config >
-void tweeners::system< Config >::update_running_slots( std::size_t from )
+void tweeners::system_base< Config >::update_running_slots( std::size_t from )
 {
   tweeners_debug_system_invariant();
 
@@ -450,7 +451,7 @@ void tweeners::system< Config >::update_running_slots( std::size_t from )
 }
 
 template< typename Config >
-void tweeners::system< Config >::update_tweener( id_type slot_id )
+void tweeners::system_base< Config >::update_tweener( id_type slot_id )
 {
   tweeners_debug_system_invariant();
 
@@ -485,7 +486,7 @@ void tweeners::system< Config >::update_tweener( id_type slot_id )
  *        each sucessor of slot_id).
  */        
 template< typename Config >
-void tweeners::system< Config >::complete_slot
+void tweeners::system_base< Config >::complete_slot
 ( id_type slot_id, duration_type successors_current_date )
 {
   m_done_queue.emplace_back( slot_id );
@@ -509,7 +510,7 @@ void tweeners::system< Config >::complete_slot
 }
 
 template< typename Config >
-void tweeners::system< Config >::stop_completed_slots()
+void tweeners::system_base< Config >::stop_completed_slots()
 {
   tweeners_debug_system_invariant();
 
@@ -543,7 +544,7 @@ void tweeners::system< Config >::stop_completed_slots()
 }
 
 template< typename Config >
-void tweeners::system< Config >::remove_dead_slots()
+void tweeners::system_base< Config >::remove_dead_slots()
 {
   tweeners_debug_system_invariant();
 
@@ -585,7 +586,7 @@ void tweeners::system< Config >::remove_dead_slots()
 }
 
 template< typename Config >
-void tweeners::system< Config >::remove_from_predecessor_successors
+void tweeners::system_base< Config >::remove_from_predecessor_successors
 ( id_type predecessor_id, id_type successor_id )
 {
   tweeners_debug_system_invariant();
@@ -608,7 +609,7 @@ void tweeners::system< Config >::remove_from_predecessor_successors
 }
 
 template< typename Config >
-void tweeners::system< Config >::remove_ids
+void tweeners::system_base< Config >::remove_ids
 ( std::vector< id_type >& ids, id_iterator first,
   const id_iterator& last ) const
 {
@@ -653,7 +654,7 @@ void tweeners::system< Config >::remove_ids
 }
   
 template< typename Config >
-void tweeners::system< Config >::check_invariants() const
+void tweeners::system_base< Config >::check_invariants() const
 {
   check_update_queue_invariants();
   check_sequences_invariants();
@@ -668,7 +669,7 @@ void tweeners::system< Config >::check_invariants() const
  * - A slot scheduled for an update must be scheduled only once.
  */
 template< typename Config >
-void tweeners::system< Config >::check_update_queue_invariants() const
+void tweeners::system_base< Config >::check_update_queue_invariants() const
 {
   const auto update_begin( m_need_update.begin() );
   const auto update_end( m_need_update.end() );
@@ -692,7 +693,7 @@ void tweeners::system< Config >::check_update_queue_invariants() const
  * - If a slot A is the predecessor of B then B is a successor of A.
  */
 template< typename Config >
-void tweeners::system< Config >::check_sequences_invariants() const
+void tweeners::system_base< Config >::check_sequences_invariants() const
 {
   const std::size_t allocated_slot_count( m_slot_states.size() );
 
@@ -720,7 +721,7 @@ void tweeners::system< Config >::check_sequences_invariants() const
  * \brief Validate that the ids in m_available_ids are not used anywhere else.
  */
 template< typename Config >
-void tweeners::system< Config >::check_available_ids() const
+void tweeners::system_base< Config >::check_available_ids() const
 {
   for ( id_type slot_id : m_available_ids )
     {

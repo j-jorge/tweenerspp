@@ -15,7 +15,7 @@ TEST( tweeners, sequence_remove_from_next_before_update )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 
@@ -42,7 +42,7 @@ TEST( tweeners, sequence_remove_from_next_in_start_small_step )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 
@@ -74,7 +74,7 @@ TEST( tweeners, sequence_remove_from_next_in_start )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 
@@ -105,7 +105,7 @@ TEST( tweeners, sequence_remove_from_next_in_update )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 
@@ -136,7 +136,7 @@ TEST( tweeners, sequence_remove_from_next_in_done )
 {
   test_helper helper;
   
-  tweener_tracker& tracker_1( helper.insert( tweeners::system<>::not_an_id ) );
+  tweener_tracker& tracker_1( helper.insert( tweeners::system::not_an_id ) );
   tweener_tracker& tracker_2( helper.insert( tracker_1.slot ) );
   tweener_tracker& tracker_3( helper.insert( tracker_1.slot ) );
 

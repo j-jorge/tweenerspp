@@ -55,8 +55,8 @@ TEST( system, custom_config )
 {
   int value;
 
-  tweeners::system< custom_config > system;
-  tweeners::builder< custom_config >()
+  tweeners::system_base< custom_config > system;
+  tweeners::builder_base< custom_config >()
     .range_transform( 0, 100, 10, value, &tweeners::easing::linear< float > )
     .build( system );
 

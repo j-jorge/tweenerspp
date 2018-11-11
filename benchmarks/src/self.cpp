@@ -24,16 +24,16 @@ void default_self_benchmark( const options& options )
       } );
   auto on_done( [ &running ]() -> void { --running; } );
   
-  tweeners::system<> system;
+  tweeners::system system;
   system.reserve( slot_count * 2, slot_count * 2, slot_count );
   
   const std::size_t duration_count( options.durations.size() );
   
-  std::vector< tweeners::system<>::id_type > slots( slot_count );
+  std::vector< tweeners::system::id_type > slots( slot_count );
 
   for ( std::size_t i( 0 ); i != slot_count; ++i )
     slots[ i ] =
-      tweeners::builder<>()
+      tweeners::builder()
       .range_transform
       ( 0, 100, options.durations[ i % duration_count ], on_update,
         &tweeners::easing::linear< float > )
@@ -41,7 +41,7 @@ void default_self_benchmark( const options& options )
       .on_done( on_done )
       .build( system );
 
-  std::vector< tweeners::system<>::id_type > previous_slots;
+  std::vector< tweeners::system::id_type > previous_slots;
 
   for ( slot_count /= 2 ; slot_count != 0; slot_count /= 2 )
     {
@@ -50,7 +50,7 @@ void default_self_benchmark( const options& options )
       
       for ( std::size_t i( 0 ); i != slot_count; ++i )
         slots[ i ] =
-          tweeners::builder<>()
+          tweeners::builder()
           .range_transform
           ( 0, 100, options.durations[ i % duration_count ], on_update,
             &tweeners::easing::linear< float > )

@@ -12,10 +12,10 @@ TEST( system, remove_before_update )
   bool started( false );
   bool done( false );
   
-  tweeners::system<> system;
+  tweeners::system system;
 
-  const tweeners::system<>::id_type slot
-    ( tweeners::builder<>()
+  const tweeners::system::id_type slot
+    ( tweeners::builder()
       .range_transform( 0, 100, 10, value, &tweeners::easing::linear< float > )
       .on_start( [ &started ]() -> void { started = true; } )
       .on_done( [ &done ]() -> void { done = true; } )
@@ -35,8 +35,8 @@ TEST( system, remove_self_in_start )
   int start_count( 0 );
   bool done( false );
   
-  tweeners::system<> system;
-  tweeners::system<>::id_type slot;
+  tweeners::system system;
+  tweeners::system::id_type slot;
 
   auto remove
     ( [ &system, &slot, &start_count ]() -> void
@@ -46,7 +46,7 @@ TEST( system, remove_self_in_start )
       } );
   
   slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform( 0, 100, 10, value, &tweeners::easing::linear< float > )
     .on_start( remove )
     .on_done( [ &done ]() -> void { done = true; } )
@@ -72,8 +72,8 @@ TEST( system, remove_self_in_stop )
   int update_count( 0 );
   int done_count( 0 );
   
-  tweeners::system<> system;
-  tweeners::system<>::id_type slot;
+  tweeners::system system;
+  tweeners::system::id_type slot;
 
   auto remove
     ( [ &system, &slot, &done_count ]() -> void
@@ -90,7 +90,7 @@ TEST( system, remove_self_in_stop )
       } );
   
   slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .on_start( [ &start_count ]() -> void { ++start_count; } )
     .on_done( remove )
@@ -125,8 +125,8 @@ TEST( system, remove_self_in_update )
   int update_count( 0 );
   int done_count( 0 );
   
-  tweeners::system<> system;
-  tweeners::system<>::id_type slot;
+  tweeners::system system;
+  tweeners::system::id_type slot;
 
   auto update
     ( [ &system, &slot, &value, &update_count ]( int v ) -> void
@@ -137,7 +137,7 @@ TEST( system, remove_self_in_update )
       } );
 
   slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .on_start( [ &start_count ]() -> void { ++start_count; } )
     .on_done( [ &done_count ]() -> void { ++done_count; } )
@@ -165,8 +165,8 @@ TEST( system, remove_self_loop_in_done )
   int update_count( 0 );
   int done_count( 0 );
   
-  tweeners::system<> system;
-  tweeners::system<>::id_type slot;
+  tweeners::system system;
+  tweeners::system::id_type slot;
 
   auto update
     ( [ &value, &update_count ]( int v ) -> void
@@ -183,7 +183,7 @@ TEST( system, remove_self_loop_in_done )
       } );
 
   slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform( 0, 100, 10, update, &tweeners::easing::linear< float > )
     .on_start( [ &start_count ]() -> void { ++start_count; } )
     .on_done( done )
@@ -222,7 +222,7 @@ TEST( system, remove_with_self_loop_then_replace_slot )
   tracker_1.slot = -1;
   tracker_3.slot = -2;
   
-  tweeners::system<> system;
+  tweeners::system system;
 
   auto remove_1_insert_2
     ( [ &system, &tracker_1, &tracker_2, &tracker_3 ]() -> void
@@ -236,7 +236,7 @@ TEST( system, remove_with_self_loop_then_replace_slot )
         
               system.remove_slot( tracker_2.slot );
               tracker_3.slot =
-                tweeners::builder<>()
+                tweeners::builder()
                 .range_transform
                 ( 0, 100, 10,
                   std::bind
@@ -250,7 +250,7 @@ TEST( system, remove_with_self_loop_then_replace_slot )
 
         system.remove_slot( tracker_1.slot );
         tracker_2.slot =
-          tweeners::builder<>()
+          tweeners::builder()
           .range_transform
           ( 0, 100, 10,
             std::bind
@@ -264,7 +264,7 @@ TEST( system, remove_with_self_loop_then_replace_slot )
       } );
   
   tracker_1.slot =
-    tweeners::builder<>()
+    tweeners::builder()
     .range_transform
     ( 0, 100, 10,
       std::bind( &tweener_tracker::update, &tracker_1, std::placeholders::_1 ),
