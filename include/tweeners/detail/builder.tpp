@@ -68,9 +68,9 @@ tweeners::builder_base< Config >::range_transform
     {
       update_callback( from + ratio * ( to - from ) );
     };
-  // Again, std::move()?
+
   m_duration = duration;
-  m_transform = transform;
+  m_transform = std::move( transform );
   
   tweeners_confirm_contract
     ( m_transform, "tweeners::builder: The transform function is not valid." );

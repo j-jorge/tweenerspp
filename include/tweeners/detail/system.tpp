@@ -5,6 +5,7 @@
 #include <tweeners/detail/debug.hpp>
 
 #include <algorithm>
+#include <chrono>
 
 #define tweeners_debug_validate_id( id )                        \
   do                                                            \
@@ -23,6 +24,25 @@
 #define tweeners_debug_system_invariant()         \
   tweeners_debug_declare_scope_guard              \
   ( [ this ]() -> void { check_invariants(); } )
+
+namespace tweeners
+{
+  namespace detail
+  {
+    template< typename Float, typename T >
+    Float to_float( T value )
+    {
+      return value;
+    }
+
+    template< typename Float, typename Rep, typename Period >
+    Float to_float
+    ( const std::chrono::duration< Rep, Period >& value )
+    {
+      return value.count();
+    }
+  }
+}
 
 template< typename Config >
 tweeners::system_base< Config >::system_base()
@@ -470,7 +490,9 @@ void tweeners::system_base< Config >::update_tweener( id_type slot_id )
     }
   else
     date_ratio =
-      tweener.transform( static_cast< float_type >( current_date ) / end_date );
+      tweener.transform
+      ( detail::to_float< float_type >( current_date )
+        / detail::to_float< float_type >( end_date ) );
   
   tweener.on_update( date_ratio );
 }

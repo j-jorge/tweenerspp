@@ -2,6 +2,7 @@
 #include "tweeners/easing.hpp"
 #include "tweeners/system.hpp"
 
+#include <chrono>
 #include <type_traits>
 
 #include <gtest/gtest.h>
@@ -43,7 +44,7 @@ private:
   
 struct custom_config
 {
-  using duration_type = int;
+  using duration_type = std::chrono::milliseconds;
   using id_type = std::uint8_t;
   using float_type = double;
 
@@ -57,12 +58,14 @@ TEST( system, custom_config )
 
   tweeners::system_base< custom_config > system;
   tweeners::builder_base< custom_config >()
-    .range_transform( 0, 100, 10, value, &tweeners::easing::linear< float > )
+    .range_transform
+    ( 0, 100, std::chrono::seconds( 10 ), value,
+      &tweeners::easing::linear< float > )
     .build( system );
 
-  system.update( 1 );
+  system.update( std::chrono::seconds( 1 ) );
   EXPECT_FLOAT_EQ( 10, value );
 
-  system.update( 3 );
+  system.update( std::chrono::seconds( 3 ) );
   EXPECT_FLOAT_EQ( 40, value );
 }
