@@ -20,9 +20,7 @@ namespace tweeners
     /**
      * \brief The type used to store the durations in the tweeners.
      *
-     * It must be a float-like type since the call to the easing functions
-     * receive the ratio of the elapsed time over the total time as a
-     * float_type.
+     * It must be convertible to float_type or std::chrono::duration.
      */
     using duration_type = Duration;
 

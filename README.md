@@ -54,10 +54,10 @@ int main()
   constexpr int to( 100 );
   constexpr float duration( 10 );
 
-  tweeners::system<> system;
+  tweeners::system system;
 
-  tweeners::builder<>()
-    .range_transform( from, to, duration, x, &tweeners::easing::sine<> )
+  tweeners::builder()
+    .range_transform( from, to, duration, x, &tweeners::easing::sine )
     .build( system );
     
   for( int i( 0 ); i != 10; ++i )
@@ -71,6 +71,25 @@ int main()
 ```
 
 See the code for details about these types.
+
+# Customization points
+
+`tweeners::system` is actually an alias for `tweeners::system_base< Config >`
+where `Config` carries some of the key types used by `tweeners::base_system`.
+The same goes for `tweeners::builder` and `tweeners::builder_base`.
+
+`Config` must define four types as listed below, see
+[the comments in source for their meaning](include/tweeners/config.hpp):
+
+```c++
+struct custom_config
+{
+  using duration_type = /* ... */;
+  using id_type = /* ... */;
+  using float_type = /* ... */;
+  using function_type = /* ... */;
+};
+```
 
 # Testing
 
