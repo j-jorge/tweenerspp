@@ -10,6 +10,9 @@ endif()
 # requires boost, we skip it if Boost is not available.
 
 if( Boost_FOUND )
+  set(claw_tween_library_path
+    "${CMAKE_CURRENT_BINARY_DIR}/claw-prefix/src/claw-build/libclaw_tween${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  
   ExternalProject_Add(
     claw
     GIT_REPOSITORY "https://github.com/j-jorge/libclaw.git"
@@ -18,6 +21,7 @@ if( Boost_FOUND )
     GIT_SHALLOW 1
     STEP_TARGETS build
     EXCLUDE_FROM_ALL 1
+    BUILD_BYPRODUCTS ${claw_tween_library_path}
     CMAKE_ARGS
       -DCLAW_NO_JPEG=1
       -DCLAW_NO_PNG=1
@@ -31,7 +35,7 @@ if( Boost_FOUND )
   set(
     optional_libraries
     ${optional_libraries}
-    "${CMAKE_CURRENT_BINARY_DIR}/claw-prefix/src/claw-build/libclaw_tween${CMAKE_STATIC_LIBRARY_SUFFIX}"
+    "${claw_tween_library_path}"
     )
   set(
     optional_include_directories

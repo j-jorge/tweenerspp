@@ -1,6 +1,9 @@
 # -- Cpptweener --
 # Maybe the oldest well known implementation of a tweener framework in C++.
 
+set(cpptweener_library_path
+  "${CMAKE_CURRENT_BINARY_DIR}/cpptweener-prefix/src/cpptweener-build/libcpptweener${CMAKE_STATIC_LIBRARY_SUFFIX}")
+
 ExternalProject_Add(
   cpptweener
   GIT_REPOSITORY "https://github.com/devmario/CppTweener.git"
@@ -9,6 +12,7 @@ ExternalProject_Add(
   GIT_SHALLOW 1
   STEP_TARGETS build
   EXCLUDE_FROM_ALL 1
+  BUILD_BYPRODUCTS ${cpptweener_library_path}
   INSTALL_COMMAND ""
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE=release
@@ -21,7 +25,7 @@ ExternalProject_Add(
 set(
   optional_libraries
   ${optional_libraries}
-  "${CMAKE_CURRENT_BINARY_DIR}/cpptweener-prefix/src/cpptweener-build/libcpptweener${CMAKE_STATIC_LIBRARY_SUFFIX}"
+  "${cpptweener_library_path}"
   )
 set(
   optional_include_directories
