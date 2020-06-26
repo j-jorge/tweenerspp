@@ -34,70 +34,70 @@ Float tweeners::easing::ease_in_out( Float t, Easing&& function )
   return Float( 0.5 ) + ease_out( 2 * t - 1, function ) / 2;
 }
     
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::none( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return 0;
 }
     
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::linear( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t;
 }
     
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::sine( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return 1 - std::cos( t * Float( M_PI ) / 2 );
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::quad( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t * t;
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::cubic( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t * t * t;
 }
     
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::quart( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t * t * t * t;
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::quint( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t * t * t * t * t;
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::circ( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return 1 - std::sqrt( 1 - t * t );
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::expo( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
   return t == 0 ? 0 : std::pow( 2, 10 * ( t - 1 ) );
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::elastic( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
@@ -109,7 +109,7 @@ Float tweeners::easing::elastic( Float t )
   return -std::pow( 2, 10 * v ) * std::sin( ( v - p / 4 ) * 2 * pi / p );
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::bounce( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
@@ -142,7 +142,7 @@ Float tweeners::easing::bounce( Float t )
   return 1 - ( Float( 7.5625 ) * c * c + d );
 }
 
-template< typename Float = float >
+template< typename Float >
 Float tweeners::easing::back( Float t )
 {
   tweeners_debug_check_easing_bounds( t );
