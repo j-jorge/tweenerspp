@@ -12,7 +12,7 @@ endif()
 if( Boost_FOUND )
   set(claw_tween_library_path
     "${CMAKE_CURRENT_BINARY_DIR}/claw-prefix/src/claw-build/libclaw_tween${CMAKE_STATIC_LIBRARY_SUFFIX}")
-  
+
   ExternalProject_Add(
     claw
     GIT_REPOSITORY "https://github.com/j-jorge/libclaw.git"
@@ -27,6 +27,7 @@ if( Boost_FOUND )
       -DCLAW_NO_PNG=1
       -DCLAW_INSTALL_CMAKE_MODULES=0
       -DCMAKE_BUILD_TYPE=release
+      -DBOOST_ROOT="${BOOST_ROOT}"
     BUILD_COMMAND
       ${CMAKE_COMMAND} --build . --target claw_tween-static
       -- -j${processor_count}
