@@ -18,7 +18,6 @@ if( Boost_FOUND )
     GIT_REPOSITORY "https://github.com/j-jorge/libclaw.git"
     GIT_TAG aaa735f48cb2e1212c3f5d1bf4e13b0879887384
     GIT_PROGRESS 1
-    GIT_SHALLOW 1
     STEP_TARGETS build
     EXCLUDE_FROM_ALL 1
     BUILD_BYPRODUCTS ${claw_tween_library_path}

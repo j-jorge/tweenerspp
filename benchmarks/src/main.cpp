@@ -14,11 +14,11 @@ int main( int argc, char** argv )
   print_options( *options );
 
   int result( 0 );
-  
+
   const std::unordered_map< std::string, benchmark_function >&
     benchmark_registry
     ( get_benchmark_registry() );
-  
+
   for ( const std::string& benchmark_name : options->benchmarks )
     {
       const auto benchmark_runner( benchmark_registry.find( benchmark_name ) );
@@ -31,11 +31,12 @@ int main( int argc, char** argv )
         }
       else
         {
+          printf( "# Time is displayed in nanoseconds.\n" );
           printf( "# -- Running benchmark '%s' --\n", benchmark_name.c_str() );
           benchmark_runner->second( *options );
           printf( "# -- Done benchmark '%s' --\n", benchmark_name.c_str() );
         }
     }
-  
+
   return result;
 }
